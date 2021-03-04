@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build OpenWrt419
+name: Lede OpenWrt K2T
 
 on:
   repository_dispatch:
@@ -18,28 +18,17 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-  release:
-    types: published
-  push:
-    branches:
-      - main
-    paths:
-      - '419.config'
-  schedule:
-    - cron: 0 8 * * 5
-  watch:
-    types: started
 
 env:
   REPO_URL: https://github.com/tetoraowo/lede-wdr6500v2
-  REPO_BRANCH: 19.07
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
+  CONFIG_FILE: 419.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
+  UPLOAD_COWTRANSFER: true
   UPLOAD_WETRANSFER: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
@@ -178,14 +167,14 @@ jobs:
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
-        retain_days: 1
-        keep_minimum_runs: 3
+        retain_days: 14
+        keep_minimum_runs: 8
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 3
+        keep_latest: 13
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
