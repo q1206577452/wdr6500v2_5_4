@@ -18,6 +18,17 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+  release:
+    types: published
+  push:
+    branches:
+      - main
+    paths:
+      - '.config'
+  schedule:
+    - cron: 0 8 * * 5
+  watch:
+    types: started
 
 env:
   REPO_URL: https://github.com/tetoraowo/lede-wdr6500v2
