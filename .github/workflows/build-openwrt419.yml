@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Lede OpenWrt K2T
+name: Lede OpenWrt419
 
 on:
   repository_dispatch:
